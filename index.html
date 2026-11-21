@@ -208,12 +208,12 @@
               <button type="button" data-scope="exam60" class="scope-btn sm:col-span-2 flex items-center justify-between p-3.5 rounded-xl border-2 border-brand-600 bg-brand-50/70 dark:bg-brand-950/40 text-left transition-all">
                 <div>
                   <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-                    <span>Đề ngẫu nhiên chuẩn 60 câu</span>
+                    <span id="structuredScopeTitle">Đề ngẫu nhiên chuẩn (30 / 40 / 50 / 60 câu)</span>
                     <span class="px-2 py-0.5 rounded-md bg-brand-600 text-white text-[10px] font-bold uppercase tracking-wide">Cấu trúc thi</span>
                   </div>
-                  <div class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">Bốc ngẫu nhiên đúng tỷ lệ: 24 Dễ – 24 Trung bình – 12 Khó</div>
+                  <div id="structuredScopeDesc" class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">Bốc ngẫu nhiên đúng tỷ lệ 40% Dễ – 40% TB – 20% Khó (24 Dễ – 24 TB – 12 Khó)</div>
                 </div>
-                <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-100 dark:bg-brand-900/70 text-brand-700 dark:text-brand-300 shrink-0">60</span>
+                <span id="structuredScopeBadge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-100 dark:bg-brand-900/70 text-brand-700 dark:text-brand-300 shrink-0">60</span>
               </button>
 
               <button type="button" data-scope="all" class="scope-btn flex items-center justify-between p-3.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-left transition-all">
@@ -285,11 +285,18 @@
 
             <div>
               <label for="selectCount" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Số lượng câu hỏi</label>
+              <div id="quickCountBtns" class="grid grid-cols-4 gap-1.5 mb-2">
+                <button type="button" data-qcount="30" class="qcount-btn py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-brand-400 transition-all">30 câu</button>
+                <button type="button" data-qcount="40" class="qcount-btn py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-brand-400 transition-all">40 câu</button>
+                <button type="button" data-qcount="50" class="qcount-btn py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-brand-400 transition-all">50 câu</button>
+                <button type="button" data-qcount="60" class="qcount-btn py-2 rounded-xl border-2 border-brand-600 bg-brand-50 dark:bg-brand-950/60 text-xs font-bold text-brand-700 dark:text-brand-300 transition-all">60 câu</button>
+              </div>
               <select id="selectCount" class="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 disabled:opacity-60 disabled:cursor-not-allowed">
                 <option value="10">10 câu (Nhanh)</option>
                 <option value="20">20 câu</option>
-                <option value="30">30 câu</option>
-                <option value="50">50 câu</option>
+                <option value="30">30 câu (12 Dễ – 12 TB – 6 Khó)</option>
+                <option value="40">40 câu (16 Dễ – 16 TB – 8 Khó)</option>
+                <option value="50">50 câu (20 Dễ – 20 TB – 10 Khó)</option>
                 <option value="60" selected>60 câu (24 Dễ – 24 TB – 12 Khó)</option>
                 <option value="100">100 câu</option>
                 <option value="all">Tất cả trong phạm vi</option>
@@ -308,6 +315,26 @@
                 <option value="60">60 phút</option>
                 <option value="0">Không giới hạn</option>
               </select>
+            </div>
+
+            <div id="answerRevealSettingWrap">
+              <div class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Hiển thị đáp án</div>
+              <div class="space-y-2" id="answerRevealContainer">
+                <label class="flex items-start gap-2.5 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/60 cursor-pointer hover:border-brand-400 transition-colors">
+                  <input id="radAnswerInstant" type="radio" name="answerRevealMode" value="instant" class="mt-0.5 w-4 h-4 accent-brand-600 cursor-pointer shrink-0" />
+                  <div class="min-w-0">
+                    <div class="text-sm font-semibold text-slate-800 dark:text-slate-100 leading-tight">Chọn xong hiện đáp án luôn</div>
+                    <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Báo ngay đúng/sai sau mỗi lần chọn</div>
+                  </div>
+                </label>
+                <label class="flex items-start gap-2.5 p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/60 cursor-pointer hover:border-brand-400 transition-colors">
+                  <input id="radAnswerEnd" type="radio" name="answerRevealMode" value="end" checked class="mt-0.5 w-4 h-4 accent-brand-600 cursor-pointer shrink-0" />
+                  <div class="min-w-0">
+                    <div class="text-sm font-semibold text-slate-800 dark:text-slate-100 leading-tight">Thi xong mới hiện đáp án</div>
+                    <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Giống thi thật, nộp bài mới chấm &amp; xem đáp án</div>
+                  </div>
+                </label>
+              </div>
             </div>
 
             <div class="space-y-3 pt-1">
@@ -620,8 +647,16 @@
 
     // Setup state
     let setupState = {
-      mode: 'exam',     // 'practice' | 'exam' | 'study'
-      scope: 'exam60'   // 'exam60' | 'all' | 'easy' | 'medium' | 'hard' | 'images' | 'bookmarked' | 'wrong'
+      mode: 'exam',           // 'practice' | 'exam' | 'study'
+      scope: 'exam60',        // 'exam60' | 'all' | 'easy' | 'medium' | 'hard' | 'images' | 'bookmarked' | 'wrong'
+      answerReveal: 'end',    // 'instant' | 'end'
+      examSize: 60            // 30 | 40 | 50 | 60
+    };
+    const EXAM_RATIOS = {
+      30: { easy: 12, medium: 12, hard: 6 },
+      40: { easy: 16, medium: 16, hard: 8 },
+      50: { easy: 20, medium: 20, hard: 10 },
+      60: { easy: 24, medium: 24, hard: 12 }
     };
 
     // Active quiz session state
@@ -809,20 +844,42 @@
           : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600');
       });
 
-      const isExam60 = setupState.scope === 'exam60';
+      const isStructured = setupState.scope === 'exam60';
       const selCount = document.getElementById('selectCount');
-      if (isExam60) {
-        selCount.value = '60';
+      if (isStructured) {
+        if (!EXAM_RATIOS[setupState.examSize]) setupState.examSize = 60;
+        selCount.value = String(setupState.examSize);
       }
-      selCount.disabled = isExam60;
-      document.getElementById('exam60CountHint').classList.toggle('hidden', !isExam60);
+      selCount.disabled = false;
+      const r = EXAM_RATIOS[setupState.examSize] || EXAM_RATIOS[60];
+      const hintEl = document.getElementById('exam60CountHint');
+      hintEl.classList.toggle('hidden', !isStructured);
+      hintEl.textContent = 'Tự động bốc ngẫu nhiên: ' + r.easy + ' câu Dễ + ' + r.medium + ' câu Trung bình + ' + r.hard + ' câu Khó.';
+      document.getElementById('structuredScopeBadge').textContent = String(setupState.examSize);
+      document.getElementById('structuredScopeDesc').textContent =
+        'Bốc ngẫu nhiên đúng tỷ lệ 40% Dễ – 40% TB – 20% Khó (' + r.easy + ' Dễ – ' + r.medium + ' TB – ' + r.hard + ' Khó)';
+
+      const curCountVal = selCount.value;
+      document.querySelectorAll('.qcount-btn').forEach(btn => {
+        const active = btn.dataset.qcount === curCountVal;
+        btn.className = 'qcount-btn py-2 rounded-xl border-2 text-xs font-bold transition-all ' + (active
+          ? 'border-brand-600 bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300'
+          : 'border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-brand-400');
+      });
+
+      const isStudy = setupState.mode === 'study';
+      document.getElementById('answerRevealSettingWrap').classList.toggle('hidden', isStudy);
+      document.getElementById('radAnswerInstant').checked = setupState.answerReveal === 'instant';
+      document.getElementById('radAnswerEnd').checked = setupState.answerReveal === 'end';
     }
 
-    function buildExam60Pool(shuffleAll) {
+    function buildExam60Pool(shuffleAll, size) {
+      const target = EXAM_RATIOS[size] ? size : setupState.examSize;
+      const r = EXAM_RATIOS[target] || EXAM_RATIOS[60];
       const qs = QUIZ_DATA.questions;
-      const easy = shuffleArray(qs.filter(q => q.level === 'easy')).slice(0, 24);
-      const medium = shuffleArray(qs.filter(q => q.level === 'medium')).slice(0, 24);
-      const hard = shuffleArray(qs.filter(q => q.level === 'hard')).slice(0, 12);
+      const easy = shuffleArray(qs.filter(q => q.level === 'easy')).slice(0, r.easy);
+      const medium = shuffleArray(qs.filter(q => q.level === 'medium')).slice(0, r.medium);
+      const hard = shuffleArray(qs.filter(q => q.level === 'hard')).slice(0, r.hard);
       const combined = easy.concat(medium, hard);
       return shuffleAll ? shuffleArray(combined) : combined;
     }
@@ -885,6 +942,7 @@
       session = {
         mode: setupState.mode,
         scope: setupState.scope,
+        answerReveal: setupState.mode === 'study' ? 'study' : setupState.answerReveal,
         items: items,
         current: 0,
         startedAt: Date.now(),
@@ -904,6 +962,12 @@
       renderNavGrids();
     }
 
+    function isInstantReveal(sess) {
+      if (!sess || sess.mode === 'study') return false;
+      if (sess.answerReveal) return sess.answerReveal === 'instant';
+      return sess.mode === 'practice';
+    }
+
     function setupTimer() {
       if (timerInterval) {
         clearInterval(timerInterval);
@@ -911,11 +975,19 @@
       }
       const timerBadge = document.getElementById('timerBadge');
       const practiceBadge = document.getElementById('practiceScoreBadge');
+      const instant = isInstantReveal(session);
+
+      if (instant) {
+        practiceBadge.classList.remove('hidden');
+        practiceBadge.classList.add('flex');
+      } else {
+        practiceBadge.classList.add('hidden');
+        practiceBadge.classList.remove('flex');
+      }
 
       if (session.mode === 'exam' && session.timeLimitSec > 0) {
         timerBadge.classList.remove('hidden');
         timerBadge.classList.add('flex');
-        practiceBadge.classList.add('hidden');
         updateTimerDisplay();
         timerInterval = setInterval(() => {
           if (!session || session.finished) {
@@ -934,13 +1006,6 @@
       } else {
         timerBadge.classList.add('hidden');
         timerBadge.classList.remove('flex');
-        if (session.mode === 'practice') {
-          practiceBadge.classList.remove('hidden');
-          practiceBadge.classList.add('flex');
-        } else {
-          practiceBadge.classList.add('hidden');
-          practiceBadge.classList.remove('flex');
-        }
         timerInterval = setInterval(() => {
           if (!session || session.finished) {
             clearInterval(timerInterval);
@@ -982,7 +1047,8 @@
       document.getElementById('mobileGridLabel').textContent = (idx + 1) + '/' + total;
       document.getElementById('sidebarStats').textContent = answeredCount + '/' + total + ' đã làm';
 
-      if (session.mode === 'practice') {
+      const instantMode = isInstantReveal(session);
+      if (instantMode) {
         const correctNow = session.items.filter(it => {
           if (it.chosen === null) return false;
           const qq = getQuestionById(it.qId);
@@ -1042,7 +1108,7 @@
 
       // Render Options
       const optsEl = document.getElementById('optionsList');
-      const showTruth = (session.mode === 'practice' && item.chosen !== null) || (session.mode === 'study' && item.revealed);
+      const showTruth = (instantMode && item.chosen !== null) || (session.mode === 'study' && item.revealed);
       const correctDisplayIdx = item.order.indexOf(q.ans);
 
       optsEl.innerHTML = item.order.map((origIdx, dispIdx) => {
@@ -1081,7 +1147,7 @@
 
       // Feedback banner
       const fb = document.getElementById('feedbackBanner');
-      if (session.mode === 'practice' && item.chosen !== null) {
+      if (instantMode && item.chosen !== null) {
         const isRight = item.order[item.chosen] === q.ans;
         fb.classList.remove('hidden');
         if (isRight) {
@@ -1112,14 +1178,15 @@
         return;
       }
 
-      if (session.mode === 'practice' && item.chosen !== null) {
-        // Already answered in practice mode
+      const instantMode = isInstantReveal(session);
+      if (instantMode && item.chosen !== null) {
+        // Already answered in instant reveal mode
         return;
       }
 
       item.chosen = dispIdx;
 
-      if (session.mode === 'practice') {
+      if (instantMode) {
         const isCorrect = item.order[dispIdx] === q.ans;
         recordAttempt(q.id, isCorrect);
       }
@@ -1148,7 +1215,7 @@
         let cls = 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700';
 
         if (it.chosen !== null) {
-          if (session.mode === 'practice') {
+          if (isInstantReveal(session)) {
             const ok = it.order[it.chosen] === q.ans;
             cls = ok ? 'bg-emerald-500 text-white' : 'bg-rose-500 text-white';
           } else {
@@ -1224,7 +1291,7 @@
           } else {
             wrong += 1;
           }
-          if (session.mode === 'exam') {
+          if (!isInstantReveal(session)) {
             recordAttempt(q.id, ok);
           }
         }
@@ -1466,8 +1533,34 @@
       document.querySelectorAll('.mode-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           setupState.mode = btn.dataset.mode;
+          if (setupState.mode === 'practice') setupState.answerReveal = 'instant';
+          else if (setupState.mode === 'exam') setupState.answerReveal = 'end';
           updateSetupUI();
         });
+      });
+      document.getElementById('radAnswerInstant').addEventListener('change', (e) => {
+        if (e.target.checked) setupState.answerReveal = 'instant';
+      });
+      document.getElementById('radAnswerEnd').addEventListener('change', (e) => {
+        if (e.target.checked) setupState.answerReveal = 'end';
+      });
+      document.querySelectorAll('.qcount-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const n = parseInt(btn.dataset.qcount, 10);
+          setupState.examSize = n;
+          document.getElementById('selectCount').value = String(n);
+          updateSetupUI();
+        });
+      });
+      document.getElementById('selectCount').addEventListener('change', (e) => {
+        const val = e.target.value;
+        const n = parseInt(val, 10);
+        if (EXAM_RATIOS[n]) {
+          setupState.examSize = n;
+        } else if (setupState.scope === 'exam60') {
+          setupState.scope = 'all';
+        }
+        updateSetupUI();
       });
       document.querySelectorAll('.scope-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1481,12 +1574,16 @@
       document.getElementById('btnQuickExam60').addEventListener('click', () => {
         setupState.mode = 'exam';
         setupState.scope = 'exam60';
+        setupState.examSize = 60;
+        setupState.answerReveal = 'end';
         updateSetupUI();
         startQuiz();
       });
       document.getElementById('btnQuickPractice60').addEventListener('click', () => {
         setupState.mode = 'practice';
         setupState.scope = 'exam60';
+        setupState.examSize = 60;
+        setupState.answerReveal = 'instant';
         updateSetupUI();
         startQuiz();
       });
@@ -1575,6 +1672,7 @@
           .map(it => getQuestionById(it.qId));
         if (wrongPool.length > 0) {
           setupState.mode = 'practice';
+          setupState.answerReveal = 'instant';
           updateSetupUI();
           startQuiz(wrongPool);
         }
